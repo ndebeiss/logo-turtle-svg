@@ -1,6 +1,6 @@
 var position = {
-  y: window.innerHeight / 2,
-  x: window.innerWidth / 2,
+  y: Math.round(window.innerHeight / 3),
+  x: Math.round(window.innerWidth / 3),
   angle: 0,
   lc: true,
 };
@@ -11,18 +11,19 @@ window.refresh = function () {
     .setAttribute(
       "d",
       "M" +
-        (position.x + 5 * Math.cos(position.angle - Math.PI / 2)) +
+        (position.x + 10 * Math.cos(position.angle - Math.PI / 2)) +
         "," +
-        (position.y + 5 * Math.sin(position.angle - Math.PI / 2)) +
+        (position.y + 10 * Math.sin(position.angle - Math.PI / 2)) +
         " L " +
-        (position.x + 5 * Math.cos(position.angle + Math.PI / 2)) +
+        (position.x + 10 * Math.cos(position.angle + Math.PI / 2)) +
         "," +
-        (position.y + 5 * Math.sin(position.angle + Math.PI / 2)) +
+        (position.y + 10 * Math.sin(position.angle + Math.PI / 2)) +
         " L " +
-        (position.x + 10 * Math.cos(position.angle)) +
+        (position.x + 20 * Math.cos(position.angle)) +
         "," +
-        (position.y + 10 * Math.sin(position.angle))
+        (position.y + 20 * Math.sin(position.angle))
     );
+  document.getElementById("path").innerHTML = document.getElementById("draw").getAttribute("d");
 };
 window.write = function () {
   var oldd = document.getElementById("draw").getAttribute("d");
@@ -43,16 +44,14 @@ window.lc = window.up = function () {
   position.lc = true;
 };
 window.av = window.forward = function (distance) {
-  position.x += distance * Math.cos(position.angle);
-  position.y += distance * Math.sin(position.angle);
+  position.x += Math.round(distance * Math.cos(position.angle));
+  position.y += Math.round(distance * Math.sin(position.angle));
   write();
   refresh();
 };
 window.re = window.backward = function (distance) {
-  oldx = position.x;
-  oldy = position.y;
-  position.x -= distance * Math.cos(position.angle);
-  position.y -= distance * Math.sin(position.angle);
+  position.x -= Math.round(distance * Math.cos(position.angle));
+  position.y -= Math.round(distance * Math.sin(position.angle));
   write();
   refresh();
 };
